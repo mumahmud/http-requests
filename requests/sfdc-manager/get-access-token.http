@@ -1,0 +1,11 @@
+# @name APL_SALESFORCE_GET_ACCESS_TOKEN
+
+POST {{SALESFORCE_LOGIN_URL}}/services/oauth2/token
+content-type: application/x-www-form-urlencoded
+
+grant_type=password&
+client_id={{SALESFORCE_CLIENT_ID}}&
+client_secret={{SALESFORCE_CLIENT_SECRET}}&
+username={{SALESFORCE_USERNAME}}&
+password={{SALESFORCE_PASSWORD}}
+

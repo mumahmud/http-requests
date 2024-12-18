@@ -1,0 +1,7 @@
+@loan_application_id = 113971
+
+GET {{CORE_URL}}/loscore/v4/application/{{loan_application_id}}/opentradelines
+authenticate: {{CORE_AUTHENTICATE_WEB}}
+client_user_id: {{CORE_CLIENT_USER_ID}}
+accept: application/json
+content-type: application/json

@@ -1,0 +1,22 @@
+# @name Decode Token
+# @description Decode the payload for a given non-expired token
+
+@token = EXAMPLE
+# @prompt token The Token to Decode
+
+# @lang lua
+< {%
+local access_token = vim.g.access_token
+if not access_token or access_token == nil or access_token == "" then
+  vim.notify("Please run oauth-service/get-access-token.http to get the access token")
+  return
+end
+%}
+
+POST {{FFAM_TOKEN_DOMAIN}}/v1/token/validate
+content-type: application/json
+authorization: Bearer {{access_token}}
+
+{
+  "token": "{{token}}"
+}

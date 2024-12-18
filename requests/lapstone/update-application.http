@@ -1,0 +1,24 @@
+# @name Update Lapstone Application
+# @description Update Lapstone Application with ID
+
+@loan_application_id = 100620022
+
+PATCH {{LAPSTONE_URL}}/lapstone/v1/application/{{loan_application_id}}
+authorization: Basic {{LAPSTONE_AUTH_BASIC}}
+client_user_id: {{LAPSTONE_CLIENT_USER_ID}}
+accept: application/json
+Content-Type: application/json
+
+{
+  "applicants": [
+    {
+      "applicant_id": 100918157,
+      "applicant_type": "PRIMARY",
+      "current_employer_name": "Apple",
+      "yrs_on_job": "2",
+      "gross_income_frequency": "Monthly",
+      "gross_income": 100000,
+      "retirement_balances": 5000
+    }
+  ]
+}

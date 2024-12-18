@@ -1,0 +1,11 @@
+# @name Get Core Application
+# @description Get Core V5 Application with ID
+
+@loan_application_id = 114111
+
+GET {{CORE_URL}}/loscore/v5/application/{{loan_application_id}}
+authenticate: {{CORE_AUTHENTICATE_WEB}}
+client_user_id: {{CORE_CLIENT_USER_ID}}
+accept: application/json
+content-type: application/json
+

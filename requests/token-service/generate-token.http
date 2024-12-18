@@ -1,0 +1,22 @@
+# @name Generate Token
+# @description Generate a token encrypting payload data
+
+# @lang lua
+< {%
+local access_token = vim.g.access_token
+if not access_token or access_token == nil or access_token == "" then
+  vim.notify("Please run oauth-service/get-access-token.http to get the access token")
+  return
+end
+%}
+
+POST {{FFAM_TOKEN_DOMAIN}}/v1/token
+content-type: application/json
+authorization: Bearer {{access_token}}
+
+{
+  "data": {
+    "loanApplicationId": "113971"
+  },
+  "expire_in": 86400
+}

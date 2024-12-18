@@ -1,0 +1,17 @@
+# @name Get DA Access Token
+# @description Get access token for DA user and save it in global
+
+POST {{FFN_AUTH_DOMAIN}}/v1/token
+content-type: application/x-www-form-urlencoded
+authorization: Basic {{FFN_AUTH_BASIC}}
+
+grant_type=client_credentials
+
+# @lang=lua
+> {%
+local body = vim.json.decode(response.body)
+local access_token = body.access_token
+client.global.set("access_token", access_token)
+-- also save it in vim globals for other scripts
+vim.g.access_token = access_token
+%}

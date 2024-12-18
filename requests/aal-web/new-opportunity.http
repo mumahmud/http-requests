@@ -1,0 +1,113 @@
+# @name Get Genie/QA Automation Access Token
+# @description Get access token for QA Automation user and save it in global
+
+POST {{FFN_AUTH_DOMAIN}}/v1/token
+content-type: application/x-www-form-urlencoded
+authorization: Basic {{FFN_AUTH_BASIC_GENIE}}
+
+grant_type=client_credentials
+
+# @lang=lua
+> {%
+local body = vim.json.decode(response.body)
+local access_token = body.access_token
+client.global.set("access_token", access_token)
+-- also save it in vim globals for other scripts
+vim.g.access_token = access_token
+%}
+
+###
+
+# @name Create Genie Lead
+# @description Create a fresh lead in Genie
+
+POST {{GENIE_URL}}/v1/api/cplus
+Content-Type: application/json
+Authorization: Bearer {{access_token}}
+
+{
+  "method": "Fresh Lead",
+  "parameters": {
+    "isCoapplicantPresent": "false",
+    "freshLeadType": "default"
+  }
+}
+
+# @lang=lua
+> {%
+local body = vim.json.decode(response.body)
+local opportunity_id = body.message
+client.global.set("opportunity_id", opportunity_id)
+%}
+
+###
+
+# @name Set Prescreen Completed
+# @description Set Prescreen Completed for a Genie Opportunity
+
+POST {{GENIE_URL}}/v1/api/cplus
+Content-Type: application/json
+Authorization: Bearer {{access_token}}
+
+{
+  "method": "Completed Prescreen",
+  "parameters": {
+    "opportunityId": "{{opportunity_id}}"
+  }
+}
+
+###
+
+# @name Get DA Access Token
+# @description Get access token for DA user
+
+POST {{FFN_AUTH_DOMAIN}}/v1/token
+content-type: application/x-www-form-urlencoded
+authorization: Basic {{FFN_AUTH_BASIC}}
+
+grant_type=client_credentials
+
+# @lang=lua
+> {%
+local body = vim.json.decode(response.body)
+local access_token = body.access_token
+client.global.set("access_token", access_token)
+-- also save it in vim globals for other scripts
+vim.g.access_token = access_token
+%}
+
+###
+
+# @name Generate Application Token
+# @description Generate application token for a Genie Opportunity
+
+POST {{FFAM_TOKEN_DOMAIN}}/v1/token
+Content-Type: application/json
+Authorization: Bearer {{access_token}}
+
+{
+  "data": {
+    "sf_opportunity_id": "006O900000T9bm2IAB",
+    "sf_account_id": "006O900000T9bm2IAB",
+    "lapstone_application_id": "100620022",
+    "lapstone_applicant_id": "100918157",
+    "internal_user": false
+  },
+  "expire_in": 86400
+}
+
+# @lang=lua
+> {%
+local logPrefix = "[Generate Application Token]: "
+
+local success, body = pcall(vim.json.decode, response.body)
+
+if not body or not success then
+  vim.notify(logPrefix .. "Error decoding response body.", "error")
+  return
+end
+
+local token = body.token
+-- save in clipboard
+vim.fn.setreg('+', token)
+%}

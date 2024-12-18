@@ -1,0 +1,16 @@
+@access_token = TOKEN
+@query = SELECT Id, Application__c, Tradeline_Source__c, Disbursement_Amount__c, Creditor_Name__c, Creditor_Account_Number__c FROM Disbursements__c WHERE Application__c = 'a01Rt00000Vb48YIAR'
+
+GET {{SALESFORCE_INSTANCE_URL}}/services/data/v43.0/query/?q={{query}}
+authorization: Bearer {{access_token}}
+
+# SELECT
+#   Id,
+#   Application__c,
+#   Tradeline_Source__c,
+#   Disbursement_Amount__c,
+#   Creditor_Name__c,
+#   Creditor_Account_Number__c
+# FROM
+#   Disbursements__c
+# LIMIT 2

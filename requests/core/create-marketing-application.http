@@ -1,0 +1,82 @@
+POST {{CORE_URL}}/loscore/v5/application/marketing
+authenticate: {{CORE_AUTHENTICATE_WEB}}
+client_user_id: {{CORE_CLIENT_USER_ID}}
+accept: application/json
+content-type: application/json
+
+{
+  "loan_application": {
+    "salesforce_application_id": "{{$timestamp}}",
+    "lead_application_id": "{{$timestamp}}",
+    "requested_loan_amount": 14000,
+    "use": "Debt consolidation",
+    "requested_amount_to_creditors": null,
+    "fraud_concern_info": "No concern",
+    "is_direct_pay": true,
+    "online_progress": "PREQUAL_SUBMITTED",
+
+    "is_risk_group_override": "false",
+    "is_manual_underwriting": "false"
+  },
+  "applicant": [
+    {
+      "is_primary": true,
+      "first_name": "Camille",
+      "last_name": "Scherer",
+      "email": "da-verified-email@wv9wfmqx.mailosaur.net",
+      "address": [
+        {
+          "address_type": "Physical",
+          "street1": "3660 HIGHWAY 267 S",
+          "city": "BEEBE",
+          "state": "AR",
+          "postal_code": "72012"
+        }
+      ],
+      "annual_income": 99999,
+      "employment_status": "Full-Time",
+      "dob": "1956-04-09",
+      "phone": [
+        {
+          "phone_number": "666-666-9001",
+          "time_type": "DAY"
+        }
+      ],
+      "ssn": "666-64-6938",
+      "employer": [
+        {
+          "name": "ABC"
+        }
+      ],
+      "occupation": "Analyst",
+      "occupation_years": "5 to 10 years",
+      "given_credit_rating": "Excellent",
+      "housing_expense_type": "Rent",
+      "monthly_housing": 2,
+      "reserves_in_accounts": 22800.54,
+      "retirement_balance": 22800.54,
+      "has_investment_account": true,
+      "has_retirement_account": true,
+      "has_life_insurance": true
+    }
+  ],
+  "loan_additional_properties": {
+    "prequal_no_adverse_actions": true
+  },
+  "marketing": {
+    "lead_channel": "medium",
+    "lead_source": "credible",
+    "lead_campaign": null,
+    "lead_ad_group": null,
+    "lead_term": null,
+    "lead_lander": null,
+    "lead_search_term": null,
+    "lead_publisher": null,
+    "lead_content": null,
+    "lead_http_referer": null,
+    "lead_creative_type": null,
+    "utm_media": null,
+    "utm_promo_id": "promoId",
+    "unique_identifier": "123444"
+  }
+}

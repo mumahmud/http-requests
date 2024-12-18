@@ -1,0 +1,11 @@
+# @name Notify Salesforce
+# @description Sync Lapstone Application with Salesforce
+
+@loan_application_id = 100620022
+
+GET {{LAPSTONE_URL}}/lapstone/v1/notifysalesforce/{{loan_application_id}}
+authorization: Basic {{LAPSTONE_AUTH_BASIC}}
+client_user_id: {{LAPSTONE_CLIENT_USER_ID}}
+accept: application/json
+Content-Type: application/json
+

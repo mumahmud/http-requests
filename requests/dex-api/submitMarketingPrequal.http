@@ -1,0 +1,138 @@
+POST {{GRAPHQL_SERVER_URL}}/graphql
+authorization: prequal
+Content-Type: application/json
+X-REQUEST-TYPE: GraphQL
+
+mutation MarketingPrequal($prequal_input: MarketingPrequalInput) {
+  submitMarketingPrequal (input: $prequal_input) {
+    code
+      success
+      message
+      data {
+        applicationCreated {
+          applicationId
+            salesforceApplicationId
+            leadApplicationId
+            loanApplicationId
+            applicationLink {
+              rel
+                href
+            }
+          dataSource
+            transactionId
+            fundingSource
+            fundingSourceReason
+        }
+        applicantsCreated {
+          isPrimary
+            applicantId
+            customerId
+            dataSource
+            transactionId
+        }
+        decision {
+          applicationStatus
+            decision
+            decisionDetails
+            additionalDocumentsRequested
+            declineReason {
+              primary {
+                code
+                  message
+                  reasonPriority
+                  result
+              }
+              coapplicant {
+                code
+                  message
+                  reasonPriority
+                  result
+              }
+            }
+          offers {
+            index
+              id
+              amount
+              termInMonths
+              interestRate
+              APR
+              originationFeeAsPercent
+              originationFeeAsDollars
+              netLoanAmount
+              monthlyPayment
+              directPayDiscount
+              dailyInterestRate
+              numRegularPayments
+              fundingDate
+              firstPaymentDate
+              recurringPaymentDay1
+              finalPaymentDate
+              finalPaymentAmount
+              financeCharge
+              totalPaymentAmount
+              pricingGridId
+              nacoRate
+              creditTier
+              loanTermUrl
+              coApplicantIncluded
+          }
+        }
+        variations {
+          id
+            name
+            variation
+            type
+            referenceId
+            referenceName
+        }
+      }
+  }
+}
+
+{
+  "prequal_input": {
+    "addressLine1": "1405 4TH AVE SW  ",
+    "annualIncome": 150000,
+    "city": "ABERDEEN",
+    "dob": "05/01/1962",
+    "email": "mk1x4@ljnoft7r.mailosaur.net",
+    "employer": "Apple",
+    "employmentType": "FULL_TIME",
+    "firstName": "DORRENE",
+    "fraudConcernInfo": "NO_CONCERN",
+    "givenCreditRating": "EXCELLENT",
+    "hasInvestmentAccount": true,
+    "hasLifeInsurance": true,
+    "hasRetirementAccount": true,
+    "housingStatus": "RENT",
+    "isDirectPay": true,
+    "isManualUnderwriting": false,
+    "lastName": "MUCKINHAUPT",
+    "loanAmount": 8000,
+    "loanPurpose": "DEBT_CONSOLIDATION",
+    "loanPurposeDetails": "UNPLANNED_EXPENSES",
+    "marketingOptions": {
+      "uniqueIdentifier": "123444",
+      "utmAdGroup": null,
+      "utmCampaign": null,
+      "utmContent": null,
+      "utmCreativeType": null,
+      "utmHttpReferer": null,
+      "utmLander": null,
+      "utmMedium": null,
+      "utmPublisher": null,
+      "utmSource": "Lending Tree"
+    },
+    "monthlyPayment": 2,
+    "occupation": "ANALYST",
+    "occupationYears": "_5_TO_10_YEARS",
+    "phone": "6232577152",
+    "prequalNoAdverseActions": false,
+    "requestedAmountToCreditors": 7000,
+    "reservesInAccounts": 22800.54,
+    "retirementBalance": 40000,
+    "ssn": "666264054",
+    "state": "SD",
+    "zip": "57401"
+  }
+}
